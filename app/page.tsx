@@ -91,7 +91,7 @@ function ProjectVideo({ src }: ProjectVideoProps) {
 
 function MagneticSocialLink({
   children,
-  link,
+  link
 }: {
   children: React.ReactNode
   link: string
@@ -99,7 +99,7 @@ function MagneticSocialLink({
   return (
     <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
       <a
-        href={link}
+        href={link} target='_blank'
         className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       >
         {children}
@@ -135,10 +135,11 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
+        <h3 className="mb-5 text-lg font-semibold">Specializing In</h3>
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating intuitive and performant web experiences.
-            Bridging the gap between design and development.
+            Full stack .Net (C#) applications, AWS Cloud-native (Serverless/Lambda) projects, Database (Relational and NoSQL/Dynamo) modeling, 
+            Cloud Data strategies, AWS DevOps solutions, and Web Front-end (Javascript framework) development.
           </p>
         </div>
       </motion.section>
@@ -147,36 +148,69 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <div key={project.name} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
-              </div>
-              <div className="px-1">
-                <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={project.link}
-                  target="_blank"
-                >
-                  {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-              </div>
+        <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-6">
+          <div className="mb-6 lg:mb-0">
+            <img src="AaronPrill-Image-1.png" alt="Aaron Prill Software Professional" className="w-96 h-96 object-cover" />
+          </div>
+          <div>
+            <h3 className="mb-5 text-lg font-semibold">Connect with Aaron</h3>
+            <p className="mb-5 text-zinc-600 dark:text-zinc-400">
+              Get in Touch on{' '}
+              <a className="underline dark:text-zinc-300" href={`https://www.linkedin.com/in/aaronprill`} target="_blank" rel="noopener noreferrer">
+                LinkedIn for Professional Inquiries
+              </a>
+            </p>
+            <div className="flex items-center justify-start space-x-3">
+              {SOCIAL_LINKS.map((link) => (
+                <MagneticSocialLink key={link.label} link={link.link}>
+                  {link.label}
+                </MagneticSocialLink>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </motion.section>
+
+      { 
+        // Only show "Selected Projects" section if PROJECTS exist
+        PROJECTS.length > 0 && (
+        <>
+          <motion.section
+            variants={VARIANTS_SECTION}
+            transition={TRANSITION_SECTION}
+          >
+            <h3 className="mb-5 text-lg font-semibold">Selected Projects</h3>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {PROJECTS.map((project) => (
+                <div key={project.name} className="space-y-2">
+                  <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+                    <ProjectVideo src={project.video} />
+                  </div>
+                  <div className="px-1">
+                    <a
+                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                      href={project.link}
+                      target="_blank"
+                    >
+                      {project.name}
+                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
+                    </a>
+                    <p className="text-base text-zinc-600 dark:text-zinc-400">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        </>
+      )}
 
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
+        <h3 className="mb-5 text-lg font-semibold">Work Experience</h3>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
@@ -210,61 +244,47 @@ export default function Personal() {
         </div>
       </motion.section>
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-3 text-lg font-medium">Blog</h3>
-        <div className="flex flex-col space-y-0">
-          <AnimatedBackground
-            enableHover
-            className="h-full w-full rounded-lg bg-zinc-100 dark:bg-zinc-900/80"
-            transition={{
-              type: 'spring',
-              bounce: 0,
-              duration: 0.2,
-            }}
+      { 
+        // Only show "Blog" section if BLOG_POSTS exist
+        BLOG_POSTS.length > 0 && (
+        <>
+          <motion.section
+            variants={VARIANTS_SECTION}
+            transition={TRANSITION_SECTION}
           >
-            {BLOG_POSTS.map((post) => (
-              <Link
-                key={post.uid}
-                className="-mx-3 rounded-xl px-3 py-3"
-                href={post.link}
-                data-id={post.uid}
+            <h3 className="mb-3 text-lg font-semibold">Blog</h3>
+            <div className="flex flex-col space-y-0">
+              <AnimatedBackground
+                enableHover
+                className="h-full w-full rounded-lg bg-zinc-100 dark:bg-zinc-900/80"
+                transition={{
+                  type: 'spring',
+                  bounce: 0,
+                  duration: 0.2,
+                }}
               >
-                <div className="flex flex-col space-y-1">
-                  <h4 className="font-normal dark:text-zinc-100">
-                    {post.title}
-                  </h4>
-                  <p className="text-zinc-500 dark:text-zinc-400">
-                    {post.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </AnimatedBackground>
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
-        <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{' '}
-          <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
-            {EMAIL}
-          </a>
-        </p>
-        <div className="flex items-center justify-start space-x-3">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticSocialLink key={link.label} link={link.link}>
-              {link.label}
-            </MagneticSocialLink>
-          ))}
-        </div>
-      </motion.section>
+                {BLOG_POSTS.map((post) => (
+                  <Link
+                    key={post.uid}
+                    className="-mx-3 rounded-xl px-3 py-3"
+                    href={post.link}
+                    data-id={post.uid}
+                  >
+                    <div className="flex flex-col space-y-1">
+                      <h4 className="font-normal dark:text-zinc-100">
+                        {post.title}
+                      </h4>
+                      <p className="text-zinc-500 dark:text-zinc-400">
+                        {post.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </AnimatedBackground>
+            </div>
+          </motion.section>
+        </>
+      )}
     </motion.main>
   )
 }
