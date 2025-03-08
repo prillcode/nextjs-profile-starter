@@ -148,9 +148,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-6">
-          <div className="mb-6 lg:mb-0">
-            <img src="AaronPrill-Image-1.png" alt="Aaron Prill Software Professional" className="w-96 h-96 object-cover" />
+        <div className="flex flex-col items-center">
+          <div className="mb-6 ">
+            <img src="AaronPrill-Headshot-1.png" alt="Aaron Prill Software Professional" className="w-96 h-96 object-cover" />
           </div>
           <div>
             <h3 className="mb-5 text-lg font-semibold">Connect with Aaron</h3>
